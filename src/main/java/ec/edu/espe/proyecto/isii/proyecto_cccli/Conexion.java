@@ -5,6 +5,8 @@
  */
 package ec.edu.espe.proyecto.isii.proyecto_cccli;
 
+import java.sql.DriverManager;
+
 /**
  *
  * @author DiegoYandun
@@ -16,4 +18,29 @@ public class Conexion {
     private static final String password = "12345";// Contraseña de la base
     private static final String url = "jdbc:mysql://localhost:3306/CCCli"; //Nombre de la base
     
+     public Conexion() {
+        conexion = null;
+        try {
+            Class.forName(driver);
+            conexion = DriverManager.getConnection(url, user, password);
+            if (conexion != null) {
+                System.out.println("Conexion establecida...");
+            }
+        } catch (Exception e) {
+            System.out.println("error al conectar" + e);
+        }
+    }
+    //metodo que retorna la conexion
+
+    public java.sql.Connection getConnection() {
+
+        return conexion;
+    }
+
+    public void Desconectar() {
+        conexion = null;
+        if (conexion == null) {
+            System.out.println("Conexion terminada...");
+        }
+    }
 }
