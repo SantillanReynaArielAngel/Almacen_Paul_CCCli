@@ -5,6 +5,8 @@
  */
 package ec.edu.espe.proyecto.isii.proyecto_cccli;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author DiegoYandun
@@ -14,8 +16,12 @@ public class FCliente extends javax.swing.JFrame {
     /**
      * Creates new form FCliente
      */
+    CCRUDCliente usuario=new CCRUDCliente();
+    
     public FCliente() {
         initComponents();
+        btnModificar.setEnabled(false);
+        btnEliminar.setEnabled(false);
     }
 
     /**
@@ -227,12 +233,21 @@ public class FCliente extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        
+        if(txtCedula.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Ingrese una Cedula");
+        }else{
+           int x=busqueda(); 
+           if(x==1){
+                btnModificar.setEnabled(true);
+                btnEliminar.setEnabled(true);
+           }
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        
+        JOptionPane.showMessageDialog(rootPane,usuario.GuardarCliente(txtCedula.getText(), txtApellidoP.getText(), txtApellidoM.getText(), txtNombre.getText(), txtTelefonoF.getText(), txtTelefonoC.getText(), txtDireccion.getText(), txtCorreo.getText()));
+        limpiar();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
@@ -240,6 +255,35 @@ public class FCliente extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnModificarActionPerformed
 
+    public void limpiar(){
+        txtCedula.setText("");
+        txtApellidoP.setText("");
+        txtApellidoM.setText("");
+        txtNombre.setText("");
+        txtTelefonoF.setText("");
+        txtTelefonoC.setText("");
+        txtDireccion.setText("");
+        txtCorreo.setText("");
+    }
+    public int busqueda(){
+        String val[]=usuario.BuscarCliente(txtCedula.getText());
+        if((val[0]).equals("-1")){
+            JOptionPane.showMessageDialog(rootPane, "No se encontro el Cliente");
+            limpiar();
+            return 0;
+        }else{
+            txtCedula.setText(val[0]);
+            txtApellidoP.setText(val[1]);
+            txtApellidoM.setText(val[2]);
+            txtNombre.setText(val[3]);
+            txtTelefonoF.setText(val[4]);
+            txtTelefonoC.setText(val[5]);
+            txtDireccion.setText(val[6]);
+            txtCorreo.setText(val[7]);
+            return 1;
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */

@@ -40,7 +40,7 @@ public class CCRUDCliente {
         }
         return mensaje;
     }
-    public String[] BuscarProducto(String ced) {
+    public String[] BuscarCliente(String ced) {
         int bandera1 = 0;
         String valores[] = new String[8];
         for (int i = 0; i < 8; i++) {
