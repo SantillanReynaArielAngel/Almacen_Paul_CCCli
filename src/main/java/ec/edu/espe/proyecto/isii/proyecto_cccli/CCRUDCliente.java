@@ -70,4 +70,39 @@ public class CCRUDCliente {
         }
         return valores;
     }
+    public String ModificarCliente(String ced, String apeP, String apeM,String nom,String telF,String telC,String dir,String cor) {
+        String mensaje = null;
+        cone = coneccion.getConnection();
+        try {
+            String x = "UPDATE Cliente SET cli_Apellido_Paterno='"+apeP+"', cli_Apellido_Materno='"+apeM+"', cli_Nombres='"+nom+"', cli_TelFijo='"+telF+"', cli_TelCelular='"+telC+"', cli_Direccion='"+dir+"', cli_Correo='"+cor+"' WHERE cli_Cedula='"+ced+"'";
+            sentencia = cone.prepareStatement(x);
+            int numeroRegistro = sentencia.executeUpdate();
+            if (numeroRegistro > 0) {
+                mensaje = "Cliente modificado";
+            } else {
+                mensaje = "Error al modificar";
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return mensaje;
+    }
+    
+    public String EliminarCliente(String ced) {
+        String mensaje = null;
+        cone = coneccion.getConnection();
+        try {
+            String x = "DELETE FROM Cliente WHERE cli_Cedula='"+ced+"'";
+            sentencia = cone.prepareStatement(x);
+            int numeroRegistro = sentencia.executeUpdate();
+            if (numeroRegistro > 0) {
+                mensaje = "Cliente eliminado";
+            } else {
+                mensaje = "Error al eliminar";
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return mensaje;
+    }
 }
