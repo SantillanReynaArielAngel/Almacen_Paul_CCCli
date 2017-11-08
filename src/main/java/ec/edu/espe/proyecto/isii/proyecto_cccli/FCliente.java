@@ -62,6 +62,11 @@ public class FCliente extends javax.swing.JFrame {
         jLabel15.setText("Telefono Fijo:");
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnLista.setText("Lista Clientes");
 
@@ -228,7 +233,9 @@ public class FCliente extends javax.swing.JFrame {
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         // TODO add your handling code here:
-        
+        btnModificar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        limpiar();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -252,8 +259,19 @@ public class FCliente extends javax.swing.JFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-        
+        if(txtCedula.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Ingrese una Cedula");
+        }else{
+           JOptionPane.showMessageDialog(rootPane, usuario.ModificarCliente(txtCedula.getText(), txtApellidoP.getText(), txtApellidoM.getText(), txtNombre.getText(), txtTelefonoF.getText(), txtTelefonoC.getText(), txtDireccion.getText(), txtCorreo.getText()));
+        }
+        limpiar();
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(rootPane, usuario.EliminarCliente(txtCedula.getText()));
+        limpiar();
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     public void limpiar(){
         txtCedula.setText("");
