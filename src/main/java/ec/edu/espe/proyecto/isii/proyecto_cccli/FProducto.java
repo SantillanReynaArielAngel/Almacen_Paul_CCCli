@@ -232,6 +232,12 @@ public class FProducto extends javax.swing.JFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
+        if(txtCodigo.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Ingrese un Codigo de Producto");
+        }else{
+            JOptionPane.showMessageDialog(rootPane, usuario.ModificarProducto(txtCodigo.getText(), txtSerie.getText(), txtMarca.getText(), txtPrecio.getText(), txtDescripcion.getText(), txtStock.getText()));
+        }
+        limpiar();
         
     }//GEN-LAST:event_btnModificarActionPerformed
 
@@ -256,6 +262,8 @@ public class FProducto extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+        JOptionPane.showMessageDialog(rootPane, usuario.EliminarProducto(txtCodigo.getText()));
+        limpiar();
         
     }//GEN-LAST:event_btnEliminarActionPerformed
 
