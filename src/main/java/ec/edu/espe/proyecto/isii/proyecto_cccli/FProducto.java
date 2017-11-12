@@ -222,7 +222,9 @@ public class FProducto extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-        
+        FPrincipal obj=new FPrincipal();
+        obj.setVisible(true);
+        this.hide();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
@@ -248,6 +250,7 @@ public class FProducto extends javax.swing.JFrame {
         }else{
             int x=busqueda();
             if(x==1){
+                btnGuardar.setEnabled(false);
                 btnModificar.setEnabled(true);
                 btnEliminar.setEnabled(true);
             }
