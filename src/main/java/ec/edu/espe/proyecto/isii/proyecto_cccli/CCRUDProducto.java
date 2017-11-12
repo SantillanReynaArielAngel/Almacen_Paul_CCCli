@@ -70,4 +70,40 @@ public class CCRUDProducto {
         }
         return valores;
     }
+    public String ModificarProducto(String cod, String ser, String mar,String pre,String des,String sto) {
+        String mensaje = null;
+        cone = coneccion.getConnection();
+        try {
+            String x = "UPDATE Producto SET pro_Serie='"+ser+"', pro_Marca='"+mar+"', pro_Precio='"+pre+"', pro_Descripcion='"+des+"', pro_Stock='"+sto+"' WHERE pro_Codigo='"+cod+"'";
+            sentencia = cone.prepareStatement(x);
+            int numeroRegistro = sentencia.executeUpdate();
+            if (numeroRegistro > 0) {
+                mensaje = "Producto modificado";
+            } else {
+                mensaje = "Error al modificar";
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return mensaje;
+    }
+    
+    public String EliminarProducto(String cod) {
+        String mensaje = null;
+        cone = coneccion.getConnection();
+        try {
+            String x = "DELETE FROM Producto WHERE pro_Codigo='"+cod+"'";
+            sentencia = cone.prepareStatement(x);
+            int numeroRegistro = sentencia.executeUpdate();
+            if (numeroRegistro > 0) {
+                mensaje = "Producto eliminado";
+            } else {
+                mensaje = "Error al eliminar";
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return mensaje;
+    }
+    
 }
