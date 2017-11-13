@@ -412,11 +412,7 @@ public class FVenta extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        if(txtCedulaCliente.getText().equals("")){
-            JOptionPane.showMessageDialog(rootPane, "Ingrese una Cedula");
-        }else{
-           busqueda(); 
-        }
+       
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnadirActionPerformed
@@ -527,7 +523,6 @@ public class FVenta extends javax.swing.JFrame {
         txtDireccion.setText("");
         txtCorreo.setText("");
     }
-   
     /**
      * @param args the command line arguments
      */
