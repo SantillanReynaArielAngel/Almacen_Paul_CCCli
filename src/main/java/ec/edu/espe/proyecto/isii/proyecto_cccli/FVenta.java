@@ -464,7 +464,18 @@ public class FVenta extends javax.swing.JFrame {
 
     private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
         // TODO add your handling code here:
-        
+        if(listaVenta.size()==0){
+            JOptionPane.showMessageDialog(rootPane, "Ingrese Productos");
+        }else{
+            if(txtCedula.getText().equals("")){
+                JOptionPane.showMessageDialog(rootPane, "No hay cliente asignado a la venta");
+            }else{
+                JOptionPane.showMessageDialog(rootPane, producto.GuardarVenta(txtTotal.getText(), String.valueOf(cmbFPago.getSelectedItem()), txtCedula.getText(), listaVenta));
+                FPrincipal obj=new FPrincipal();
+                obj.setVisible(true);
+                this.hide(); 
+            }
+        }
     }//GEN-LAST:event_btnVentaActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
