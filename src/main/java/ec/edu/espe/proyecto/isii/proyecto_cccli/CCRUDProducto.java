@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -106,4 +107,31 @@ public class CCRUDProducto {
         return mensaje;
     }
     
+    public ArrayList<String[]> BuscarListaProducto() {
+        ArrayList<String[]> list= new ArrayList<String[]>();
+        String[] data;
+        cone = coneccion.getConnection();
+        int bandera1 = 0;
+        try {
+            sentencia = cone.prepareStatement("SELECT DISTINCT pro_Codigo, concat(concat(pro_Serie,' '),pro_Marca),pro_Precio,pro_Stock FROM PRODUCTO");//perpara la sentencia
+            resul = sentencia.executeQuery();//ejecuta la sentencia
+            while (resul.next()) {
+                data=new String[4];
+                data[0]=(resul.getString(1));
+                data[1]=(resul.getString(2));
+                data[2]=(resul.getString(3));
+                data[3]=(resul.getString(4));
+                list.add(data);
+                bandera1++;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error" + ex);
+        }
+        if (bandera1 == 0) {
+            data=new String[4];
+            data[0]="-1";
+            list.add(data);
+        }
+        return list;
+    }
 }

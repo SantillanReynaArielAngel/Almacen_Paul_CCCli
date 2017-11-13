@@ -5,6 +5,10 @@
  */
 package ec.edu.espe.proyecto.isii.proyecto_cccli;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ivan
@@ -14,10 +18,36 @@ public class FVenta extends javax.swing.JFrame {
     /**
      * Creates new form FVenta
      */
+    CCRUDCliente usuario=new CCRUDCliente();
+    CCRUDProducto producto=new CCRUDProducto();
+    ArrayList<String[]> list= new ArrayList<String[]>();
+    DefaultTableModel jtPro;
+    ArrayList<String[]> listaVenta= new ArrayList<String[]>();
+    int fila;
+    String numalq="";
+    
     public FVenta() {
         initComponents();
+        inicializar();
+        jtPro = (DefaultTableModel) jTVenta.getModel();
     }
 
+    public void inicializar() {
+        String x[];
+        cmbProducto.removeAllItems();
+        list = producto.BuscarListaProducto();
+        x=list.get(0);
+        if(x[0].equals("-1")){
+            JOptionPane.showMessageDialog(rootPane, "El stock no tiene productos; ingreso nuevos productos para usar el sistema");           
+        }else{
+            for (int i = 0; i < list.size(); i++) {
+                x=list.get(i);
+                cmbProducto.addItem(x[1]);
+            }
+        }
+                
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -372,7 +402,12 @@ public class FVenta extends javax.swing.JFrame {
 
     private void cmbProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProductoActionPerformed
         // TODO add your handling code here:
-       
+        String x[];
+        if(cmbProducto.getSelectedIndex()!=-1){
+            x=list.get(cmbProducto.getSelectedIndex());
+            txtStock.setText(x[3]);
+            txtPrecio.setText(x[2]);
+        }
     }//GEN-LAST:event_cmbProductoActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -382,12 +417,49 @@ public class FVenta extends javax.swing.JFrame {
 
     private void btnAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnadirActionPerformed
         // TODO add your handling code here:
-       
+        String []dato;
+        boolean band=true;
+        if (cmbProducto.getSelectedIndex()==-1) {
+            JOptionPane.showMessageDialog(rootPane, "No se ha escogido un producto");
+
+        } else {
+            if(txtCantidad.getText().equals("")){
+                JOptionPane.showMessageDialog(rootPane, "Ingrese una cantidad");
+            }else{
+                String x[],y[];
+                x=list.get(cmbProducto.getSelectedIndex());
+                for(int k=0;k<listaVenta.size();k++){
+                   y=listaVenta.get(k);
+                   if(x[0].equals(y[0])){
+                       JOptionPane.showMessageDialog(rootPane, "Producto ya ingresado, si quiere cambiar la cantidad eliminelo y vuelva a ingresar");
+                       band=false;
+                   }
+                }
+                if(band){
+                    if (Integer.parseInt(txtCantidad.getText())<=Integer.parseInt(x[3])) {
+                        dato=new String[4];
+                        dato[0] = x[0];
+                        dato[1] = String.valueOf(cmbProducto.getSelectedItem());
+                        dato[2] = txtCantidad.getText();
+                        dato[3] = String.valueOf(Integer.parseInt(txtCantidad.getText())*Double.parseDouble(x[2]));
+                        jtPro.addRow(dato);
+                        txtTotal.setText(String.valueOf(Double.parseDouble(txtTotal.getText())+Integer.parseInt(txtCantidad.getText())*Double.parseDouble(x[2])));       
+                        listaVenta.add(dato);
+                        txtCantidad.setText("");
+
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Cantidad supera Stock");
+                        txtCantidad.setText("");
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_btnAnadirActionPerformed
 
     private void jTVentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTVentaMouseClicked
         // TODO add your handling code here:
-       
+        numalq = jTVenta.getValueAt(jTVenta.getSelectedRow(), 1).toString();
+        fila = jTVenta.getSelectedRow();
     }//GEN-LAST:event_jTVentaMouseClicked
 
     private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
@@ -397,7 +469,20 @@ public class FVenta extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-       
+       String dato[],x[];
+        if (numalq.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Debe escoger un producto");
+        } else {
+            int op = JOptionPane.showConfirmDialog(this, "Desea eliminar el producto: " + numalq, "Eliminar producto", JOptionPane.YES_NO_OPTION);
+            if (op == 0) {// cero para si 
+                dato=listaVenta.get(fila);        
+                txtTotal.setText(String.valueOf(Double.parseDouble(txtTotal.getText())-Double.parseDouble(dato[3])));
+                listaVenta.remove(fila);
+                jtPro.removeRow(fila);        
+            }
+        }
+        numalq = "";
+        fila = 0;
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
