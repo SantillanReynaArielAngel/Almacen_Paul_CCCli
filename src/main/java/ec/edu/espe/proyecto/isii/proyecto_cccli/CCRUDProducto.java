@@ -134,4 +134,40 @@ public class CCRUDProducto {
         }
         return list;
     }
+    public String GuardarVenta(String tot,String fpag,String ced ,ArrayList<String[]> list) {
+        String mensaje = null,col[];
+        int codi=0;
+        boolean band=true;
+        cone = coneccion.getConnection();
+        try {
+            String y = "SELECT max(ven_Numero) FROM Venta;";
+            sentencia = cone.prepareStatement(y);
+            resul = sentencia.executeQuery();//ejecuta la sentencia
+            while (resul.next()) {
+                codi = resul.getInt(1);
+                band=false;
+            } 
+            if(band) {codi=0;}
+            y= "INSERT INTO Venta VALUES ("+(codi+1)+",sysdate(),"+tot+",'"+fpag+"','"+ced+"')";
+            sentencia = cone.prepareStatement(y);
+            int numeroRegistro = sentencia.executeUpdate();
+            for(int i=0;i<list.size();i++){
+                col=list.get(i);
+                y = "INSERT INTO Detalle_Venta VALUES ("+(codi+1)+",'"+col[0]+"','"+col[2]+"')";
+                sentencia = cone.prepareStatement(y);
+                sentencia.executeUpdate();  
+                y = "UPDATE Producto SET pro_Stock=pro_Stock-"+col[2]+" WHERE pro_Codigo='" + col[0]+"'";
+                sentencia = cone.prepareStatement(y);
+                sentencia.executeUpdate();
+            }      
+            if (numeroRegistro > 0) {
+                mensaje = "Venta ingresada";
+            } else {
+                mensaje = "Error al ingresar";
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return mensaje;
+    }
 }
