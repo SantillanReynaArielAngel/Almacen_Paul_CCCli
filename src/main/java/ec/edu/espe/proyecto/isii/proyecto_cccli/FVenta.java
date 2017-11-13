@@ -496,6 +496,33 @@ public class FVenta extends javax.swing.JFrame {
         fila = 0;
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    public void busqueda(){
+        String val[]=usuario.BuscarCliente(txtCedulaCliente.getText());
+        if((val[0]).equals("-1")){
+            JOptionPane.showMessageDialog(rootPane, "No se encontro el Cliente");
+            limpiar();
+        }else{
+            txtCedula.setText(val[0]);
+            txtApellidoP.setText(val[1]);
+            txtApellidoM.setText(val[2]);
+            txtNombre.setText(val[3]);
+            txtTelefonoF.setText(val[4]);
+            txtTelefonoC.setText(val[5]);
+            txtDireccion.setText(val[6]);
+            txtCorreo.setText(val[7]);
+        }
+    }
+    
+    public void limpiar(){
+        txtCedula.setText("");
+        txtApellidoP.setText("");
+        txtApellidoM.setText("");
+        txtNombre.setText("");
+        txtTelefonoF.setText("");
+        txtTelefonoC.setText("");
+        txtDireccion.setText("");
+        txtCorreo.setText("");
+    }
     /**
      * @param args the command line arguments
      */
