@@ -5,6 +5,8 @@
  */
 package ec.edu.espe.proyecto.isii.proyecto_cccli;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -310,9 +312,11 @@ public class FCliente extends javax.swing.JFrame {
                 txtCedula.setText("");
                 JOptionPane.showMessageDialog(null, "Cedula Incorrecta");
             } else {
+                if(validarEmail(txtCorreo.getText())){
                 JOptionPane.showMessageDialog(rootPane,usuario.GuardarCliente(txtCedula.getText(), txtApellidoP.getText(), txtApellidoM.getText(), txtNombre.getText(), txtTelefonoF.getText(), txtTelefonoC.getText(), txtDireccion.getText(), txtCorreo.getText()));
-                limpiar();
-            }
+                limpiar();}else{
+                    JOptionPane.showMessageDialog(null, "Correo Invalido");
+                }}
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -464,7 +468,13 @@ public class FCliente extends javax.swing.JFrame {
             return (0);
         }
     }
-    
+    public static boolean validarEmail(String email) {
+        String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        Pattern pattern = Pattern.compile(PATTERN_EMAIL);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
     /**
      * @param args the command line arguments
      */
