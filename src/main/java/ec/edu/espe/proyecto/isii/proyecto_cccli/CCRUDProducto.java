@@ -170,4 +170,91 @@ public class CCRUDProducto {
         }
         return mensaje;
     }
+    public ArrayList<String[]> BuscarVentas() {
+        ArrayList<String[]> list= new ArrayList<String[]>();
+        String[] data;
+        cone = coneccion.getConnection();
+        int bandera1 = 0;
+        try {
+            sentencia = cone.prepareStatement("SELECT * FROM Venta;");//perpara la sentencia
+            resul = sentencia.executeQuery();//ejecuta la sentencia
+            while (resul.next()) {
+                data=new String[5];
+                data[0]=(resul.getString(1));
+                data[1]=(resul.getString(2));
+                data[2]=(resul.getString(3));
+                data[3]=(resul.getString(4));
+                data[4]=(resul.getString(5));
+                list.add(data);
+                bandera1++;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error" + ex);
+        }
+        if (bandera1 == 0) {
+            data=new String[4];
+            data[0]="-1";
+            list.add(data);
+        }
+        return list;
+    }
+    
+    public ArrayList<String[]> BuscarLCliente() {
+        ArrayList<String[]> list= new ArrayList<String[]>();
+        String[] data;
+        cone = coneccion.getConnection();
+        int bandera1 = 0;
+        try {
+            sentencia = cone.prepareStatement("SELECT cli_Cedula,cli_Apellido_Paterno,cli_Nombres,cli_TelCelular,cli_Direccion,cli_Correo FROM CCCli.Cliente;");//perpara la sentencia
+            resul = sentencia.executeQuery();//ejecuta la sentencia
+            while (resul.next()) {
+                data=new String[6];
+                data[0]=(resul.getString(1));
+                data[1]=(resul.getString(2));
+                data[2]=(resul.getString(3));
+                data[3]=(resul.getString(4));
+                data[4]=(resul.getString(5));
+                data[5]=(resul.getString(6));
+                list.add(data);
+                bandera1++;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error" + ex);
+        }
+        if (bandera1 == 0) {
+            data=new String[4];
+            data[0]="-1";
+            list.add(data);
+        }
+        return list;
+    }
+    
+    public ArrayList<String[]> BuscarLProducto() {
+        ArrayList<String[]> list= new ArrayList<String[]>();
+        String[] data;
+        cone = coneccion.getConnection();
+        int bandera1 = 0;
+        try {
+            sentencia = cone.prepareStatement("SELECT pro_Codigo,pro_Serie,pro_Marca,pro_Precio,pro_Stock FROM CCCli.Producto;");//perpara la sentencia
+            resul = sentencia.executeQuery();//ejecuta la sentencia
+            while (resul.next()) {
+                data=new String[5];
+                data[0]=(resul.getString(1));
+                data[1]=(resul.getString(2));
+                data[2]=(resul.getString(3));
+                data[3]=(resul.getString(4));
+                data[4]=(resul.getString(4));
+                list.add(data);
+                bandera1++;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error" + ex);
+        }
+        if (bandera1 == 0) {
+            data=new String[4];
+            data[0]="-1";
+            list.add(data);
+        }
+        return list;
+    }
 }
