@@ -6,6 +6,7 @@
 package ec.edu.espe.proyecto.isii.proyecto_cccli;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,8 +28,80 @@ public class FVista extends javax.swing.JFrame {
         jtPro = (DefaultTableModel) jTVenta.getModel();
         jtPro2 = (DefaultTableModel) jTVenta1.getModel();
         jtPro3 = (DefaultTableModel) jTVenta2.getModel();
+        inicializar(tip);
     }
-    
+    public void inicializar(int tip){
+        if(tip==1){
+            jPProductos.setVisible(false);
+            jPClientes.setVisible(false);
+            lblPortada.setText("Lista Ventas");
+            String x[];
+            String dato[];
+            list = producto.BuscarVentas();
+            x=list.get(0);
+            if(x[0].equals("-1")){
+                JOptionPane.showMessageDialog(rootPane, "No hay ventas registradas");           
+            }else{
+                for (int i = 0; i < list.size(); i++) {
+                    x=list.get(i);
+                    dato=new String[5];
+                    dato[0] = x[0];
+                    dato[1] = x[1];
+                    dato[2] = x[2];
+                    dato[3] = x[3];
+                    dato[4] = x[4];
+                    jtPro.addRow(dato);
+                }
+            }
+        }
+        if(tip==2){
+            jPVenta.setVisible(false);
+            jPProductos.setVisible(false);
+            lblPortada.setText("Lista Clientes");
+            String x[];
+            String dato[];
+            list = producto.BuscarLCliente();
+            x=list.get(0);
+            if(x[0].equals("-1")){
+                JOptionPane.showMessageDialog(rootPane, "No hay clientes registrados");           
+            }else{
+                for (int i = 0; i < list.size(); i++) {
+                    x=list.get(i);
+                    dato=new String[6];
+                    dato[0] = x[0];
+                    dato[1] = x[1];
+                    dato[2] = x[2];
+                    dato[3] = x[3];
+                    dato[4] = x[4];
+                    dato[5] = x[5];
+                    jtPro2.addRow(dato);
+                }
+            }
+        }
+        if(tip==3){
+            jPVenta.setVisible(false);
+            jPClientes.setVisible(false);
+            lblPortada.setText("Lista Productos");
+            String x[];
+            String dato[];
+            list = producto.BuscarLProducto();
+            x=list.get(0);
+            if(x[0].equals("-1")){
+                JOptionPane.showMessageDialog(rootPane, "No hay productos registrados");           
+            }else{
+                for (int i = 0; i < list.size(); i++) {
+                    x=list.get(i);
+                    dato=new String[5];
+                    dato[0] = x[0];
+                    dato[1] = x[1];
+                    dato[2] = x[2];
+                    dato[3] = x[3];
+                    dato[4] = x[4];
+                    jtPro3.addRow(dato);
+                }
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
