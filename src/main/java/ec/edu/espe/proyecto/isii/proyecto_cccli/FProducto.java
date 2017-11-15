@@ -246,12 +246,13 @@ public class FProducto extends javax.swing.JFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-        if(txtCodigo.getText().equals("")){
-            JOptionPane.showMessageDialog(rootPane, "Ingrese un Codigo de Producto");
+        if(txtSerie.getText().equals("") ||  txtMarca.getText().equals("") ||  txtPrecio.getText().equals("") ||  txtDescripcion.getText().equals("") ||  txtStock.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "No ingreso todos los datos");
         }else{
             JOptionPane.showMessageDialog(rootPane, usuario.ModificarProducto(txtCodigo.getText(), txtSerie.getText(), txtMarca.getText(), txtPrecio.getText(), txtDescripcion.getText(), txtStock.getText()));
+            limpiar();
         }
-        limpiar();
         
     }//GEN-LAST:event_btnModificarActionPerformed
 
@@ -262,6 +263,7 @@ public class FProducto extends javax.swing.JFrame {
         }else{
             int x=busqueda();
             if(x==1){
+                txtCodigo.setEditable(false);
                 btnGuardar.setEnabled(false);
                 btnModificar.setEnabled(true);
                 btnEliminar.setEnabled(true);
@@ -271,8 +273,13 @@ public class FProducto extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(rootPane,usuario.GuardarProducto(txtCodigo.getText(), txtSerie.getText(), txtMarca.getText(), txtPrecio.getText(), txtDescripcion.getText(), txtStock.getText()));
-        limpiar();
+        if(txtCodigo.getText().equals("") ||  txtSerie.getText().equals("") ||  txtMarca.getText().equals("") ||  txtPrecio.getText().equals("") ||  txtDescripcion.getText().equals("") ||  txtStock.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "No ingreso todos los datos");
+        }else{
+            JOptionPane.showMessageDialog(rootPane,usuario.GuardarProducto(txtCodigo.getText(), txtSerie.getText(), txtMarca.getText(), txtPrecio.getText(), txtDescripcion.getText(), txtStock.getText()));
+            limpiar();
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
