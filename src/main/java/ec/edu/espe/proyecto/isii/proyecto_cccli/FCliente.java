@@ -69,6 +69,12 @@ public class FCliente extends javax.swing.JFrame {
             }
         });
 
+        txtTelefonoF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoFKeyTyped(evt);
+            }
+        });
+
         btnLista.setText("Lista Clientes");
 
         jLabel16.setText("Telefono Celular:");
@@ -77,6 +83,12 @@ public class FCliente extends javax.swing.JFrame {
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimpiarActionPerformed(evt);
+            }
+        });
+
+        txtTelefonoC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoCKeyTyped(evt);
             }
         });
 
@@ -95,9 +107,27 @@ public class FCliente extends javax.swing.JFrame {
 
         jLabel11.setText("Ingrese Datos del Cliente");
 
+        txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyTyped(evt);
+            }
+        });
+
         jLabel12.setText("Apellido Paterno:");
 
+        txtApellidoP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoPKeyTyped(evt);
+            }
+        });
+
         jLabel13.setText("Apellido Materno:");
+
+        txtApellidoM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoMKeyTyped(evt);
+            }
+        });
 
         jLabel14.setText("Nombres:");
 
@@ -105,6 +135,12 @@ public class FCliente extends javax.swing.JFrame {
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
+            }
+        });
+
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
             }
         });
 
@@ -265,8 +301,13 @@ public class FCliente extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(rootPane,usuario.GuardarCliente(txtCedula.getText(), txtApellidoP.getText(), txtApellidoM.getText(), txtNombre.getText(), txtTelefonoF.getText(), txtTelefonoC.getText(), txtDireccion.getText(), txtCorreo.getText()));
-        limpiar();
+        if (validar() == 0) {
+            txtCedula.setText("");
+            JOptionPane.showMessageDialog(null, "Cedula Incorrecta");
+        } else {
+            JOptionPane.showMessageDialog(rootPane,usuario.GuardarCliente(txtCedula.getText(), txtApellidoP.getText(), txtApellidoM.getText(), txtNombre.getText(), txtTelefonoF.getText(), txtTelefonoC.getText(), txtDireccion.getText(), txtCorreo.getText()));
+            limpiar();
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
@@ -291,6 +332,66 @@ public class FCliente extends javax.swing.JFrame {
         obj.setVisible(true);
         this.hide();
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        if (txtCedula.getText().length() == 10) {
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCedulaKeyTyped
+
+    private void txtApellidoPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoPKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if ((c < 'a' || c > 'z') && c != '-' && (c < 'A' || c > 'Z')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtApellidoPKeyTyped
+
+    private void txtApellidoMKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoMKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if ((c < 'a' || c > 'z') && c != '-' && (c < 'A' || c > 'Z')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtApellidoMKeyTyped
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if ((c < 'a' || c > 'z') && c != '-' && (c < 'A' || c > 'Z')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtTelefonoFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoFKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if ((c < '0' || c > '9')&& c != '-' && c != '+') {
+            evt.consume();
+        }
+        if (txtTelefonoC.getText().length() == 15) {
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtTelefonoFKeyTyped
+
+    private void txtTelefonoCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoCKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if ((c < '0' || c > '9')&& c != '-' && c != '+') {
+            evt.consume();
+        }
+        if (txtTelefonoC.getText().length() == 15) {
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtTelefonoCKeyTyped
 
     public void limpiar(){
         txtCedula.setText("");
@@ -320,6 +421,40 @@ public class FCliente extends javax.swing.JFrame {
             txtDireccion.setText(val[6]);
             txtCorreo.setText(val[7]);
             return 1;
+        }
+    }
+    
+    public int validar() {
+        long cedula = Long.parseLong(txtCedula.getText()), coc;
+        int res, dverif, mul, pares = 0, impares = 0, sumato, res2;
+        dverif = (int) cedula % 10;
+        coc = cedula / 10;
+
+        for (int i = 0; i < 9; i++) {
+
+            res = (int) coc % 10;
+            coc = coc / 10;
+            if (i % 2 == 0) {
+                mul = res * 2;
+                if (mul > 9) {
+                    mul -= 9;
+                }
+                pares += mul;
+            } else {
+                impares += res;
+            }
+
+        }
+        //System.out.println("pares:"+pares+"impares"+impares);
+        sumato = pares + impares;
+        res2 = 10 - (sumato % 10);
+        if (res2 == 10) {
+            res2 = 0;
+        }
+        if (dverif == res2) {
+            return (1);
+        } else {
+            return (0);
         }
     }
     
