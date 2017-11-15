@@ -292,6 +292,7 @@ public class FCliente extends javax.swing.JFrame {
         }else{
            int x=busqueda(); 
            if(x==1){
+                txtCedula.setEditable(false);
                 btnGuardar.setEnabled(false);
                 btnModificar.setEnabled(true);
                 btnEliminar.setEnabled(true);
@@ -301,23 +302,29 @@ public class FCliente extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        if (validar() == 0) {
-            txtCedula.setText("");
-            JOptionPane.showMessageDialog(null, "Cedula Incorrecta");
-        } else {
-            JOptionPane.showMessageDialog(rootPane,usuario.GuardarCliente(txtCedula.getText(), txtApellidoP.getText(), txtApellidoM.getText(), txtNombre.getText(), txtTelefonoF.getText(), txtTelefonoC.getText(), txtDireccion.getText(), txtCorreo.getText()));
-            limpiar();
+        if(txtCedula.getText().equals("") || txtApellidoP.getText().equals("") || txtApellidoM.getText().equals("") || txtNombre.getText().equals("") || txtTelefonoF.getText().equals("") || txtTelefonoC.getText().equals("") || txtDireccion.getText().equals("") || txtCorreo.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "No ingreso todos los datos");
+        }else{
+            if (validar() == 0) {
+                txtCedula.setText("");
+                JOptionPane.showMessageDialog(null, "Cedula Incorrecta");
+            } else {
+                JOptionPane.showMessageDialog(rootPane,usuario.GuardarCliente(txtCedula.getText(), txtApellidoP.getText(), txtApellidoM.getText(), txtNombre.getText(), txtTelefonoF.getText(), txtTelefonoC.getText(), txtDireccion.getText(), txtCorreo.getText()));
+                limpiar();
+            }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-        if(txtCedula.getText().equals("")){
-            JOptionPane.showMessageDialog(rootPane, "Ingrese una Cedula");
+        if(txtApellidoP.getText().equals("") || txtApellidoM.getText().equals("") || txtNombre.getText().equals("") || txtTelefonoF.getText().equals("") || txtTelefonoC.getText().equals("") || txtDireccion.getText().equals("") || txtCorreo.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "No ingreso todos los datos");
         }else{
-           JOptionPane.showMessageDialog(rootPane, usuario.ModificarCliente(txtCedula.getText(), txtApellidoP.getText(), txtApellidoM.getText(), txtNombre.getText(), txtTelefonoF.getText(), txtTelefonoC.getText(), txtDireccion.getText(), txtCorreo.getText()));
+            JOptionPane.showMessageDialog(rootPane, usuario.ModificarCliente(txtCedula.getText(), txtApellidoP.getText(), txtApellidoM.getText(), txtNombre.getText(), txtTelefonoF.getText(), txtTelefonoC.getText(), txtDireccion.getText(), txtCorreo.getText()));
+            limpiar();
         }
-        limpiar();
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
