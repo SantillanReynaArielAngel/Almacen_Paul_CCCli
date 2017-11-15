@@ -100,6 +100,18 @@ public class FProducto extends javax.swing.JFrame {
             }
         });
 
+        txtStock.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtStockKeyTyped(evt);
+            }
+        });
+
+        txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioKeyTyped(evt);
+            }
+        });
+
         jLabel10.setText("Codigo:");
 
         jLabel12.setText("Serie:");
@@ -269,6 +281,22 @@ public class FProducto extends javax.swing.JFrame {
         limpiar();
         
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if ((c < '0' || c > '9') && c != '.') {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPrecioKeyTyped
+
+    private void txtStockKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStockKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtStockKeyTyped
 
     public void limpiar(){
         txtCodigo.setText("");
